@@ -5,20 +5,27 @@ When I create a new playlist with the name "My amazing playlist"
 Then I should have a playlist named "My amazing playlist" with 0 tracks
 
 Given that I have a playlist named "My playlist"
-When I delete the playlist "My playlist"
-Then I should not have a playlist named "My playlist"
+When I add the track "My track" to the playlist
+Then The playlist should have 1 track
 
 Given that I have a playlist named "My playlist"
-When I add the track "My track" to the playlist "my playlist"
-Then I should have a playlist named "My playlist" with 1 track
+ And The playlist has a track named "My track"
+When I add the track "My track" to the playlist
+Then An error should be thrown
 
 Given that I have a playlist named "My playlist" with
  And The playlist "My playlist" has a track named "My track"
-When I change remove the track "My track" from the playlist "My playlist"
+When I remove the track "My track" from the playlist "My playlist"
 Then I should have a playlist named "My playlist" with 0 tracks
+
+---
 
 Given that I have a playlist named "My playlist"
  And I'm a valid user
 When I change the name of the playlist "My playlist" to "My amazing playlist"
 Then I should have a playlist named "My amazing playlist"
  And I should not have a playlist named "My playlist"
+
+Given that I have a playlist named "My playlist"
+When I delete the playlist "My playlist"
+Then I should not have a playlist named "My playlist"
