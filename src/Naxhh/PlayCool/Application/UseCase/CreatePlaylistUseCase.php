@@ -9,19 +9,19 @@ use Naxhh\PlayCool\Domain\Entity\Playlist;
 
 class CreatePlaylistUseCase implements UseCase
 {
-	private $playlist_repository;
+    private $playlist_repository;
 
-	public function __construct(PlaylistRepository $playlist_repository) {
-		$this->playlist_repository = $playlist_repository;
-	}
+    public function __construct(PlaylistRepository $playlist_repository) {
+        $this->playlist_repository = $playlist_repository;
+    }
 
-	public function handle(Command $command) {
-		$request = $command->getRequest();
+    public function handle(Command $command) {
+        $request = $command->getRequest();
 
-		$playlist = Playlist::create($request->get('name'));
+        $playlist = Playlist::create($request->get('name'));
 
-		$this->playlist_repository->add($playlist);
+        $this->playlist_repository->add($playlist);
 
-		return $playlist;
-	}
+        return $playlist;
+    }
 }
