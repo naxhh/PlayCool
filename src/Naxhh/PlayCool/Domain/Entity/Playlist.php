@@ -84,7 +84,7 @@ class Playlist
         $track = Track::create($track_name);
 
         $track_already_exists = function($key, $item) use ($track) {
-            return $track->getName() === $item->getName();
+            return $track->getId() == $item->getId();
         };
 
         if ($this->tracks->exists($track_already_exists)) {
