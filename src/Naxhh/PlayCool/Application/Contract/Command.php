@@ -2,4 +2,6 @@
 
 namespace Naxhh\PlayCool\Application\Contract;
 
-interface Command {}
+interface Command {
+	public function getRequest();
+}
