@@ -5,6 +5,9 @@ namespace Naxhh\PlayCool\Application\Command;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
 
+/**
+ * Creates a new empty playlist.
+ */
 class CreatePlaylistCommand implements Command
 {
     private $name;

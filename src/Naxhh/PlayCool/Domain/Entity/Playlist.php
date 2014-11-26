@@ -36,10 +36,21 @@ class Playlist
         $this->tracks = new ArrayCollection;
     }
 
+    /**
+     * Retrieves the current name of the playlist.
+     *
+     * @return string
+     */
     public function getName() {
         return $this->name;
     }
 
+    /**
+     * Updates the name of the playlist.
+     *
+     * @param string $name The new name for the playlist.
+     * @return void
+     */
     public function updateName($name) {
         $this->name = $name;
     }

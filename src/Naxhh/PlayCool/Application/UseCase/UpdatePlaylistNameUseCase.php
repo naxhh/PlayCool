@@ -6,6 +6,9 @@ use Naxhh\PlayCool\Application\Contract\UseCase;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
 
+/**
+ * Updates the name of a playlist.
+ */
 class UpdatePlaylistNameUseCase implements UseCase
 {
     private $playlist_repository;

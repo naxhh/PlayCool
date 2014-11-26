@@ -7,6 +7,9 @@ use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
 use Naxhh\PlayCool\Domain\Entity\Playlist;
 
+/**
+ * Creates an empty playlist.
+ */
 class CreatePlaylistUseCase implements UseCase
 {
     private $playlist_repository;

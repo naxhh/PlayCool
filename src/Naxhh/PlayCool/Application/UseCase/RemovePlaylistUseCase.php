@@ -6,6 +6,9 @@ use Naxhh\PlayCool\Application\Contract\UseCase;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
 
+/**
+ * Removes a playlist given a name.
+ */
 class RemovePlaylistUseCase implements UseCase
 {
     private $playlist_repository;
