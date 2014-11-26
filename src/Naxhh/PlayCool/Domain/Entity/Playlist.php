@@ -36,9 +36,12 @@ class Playlist
         $this->tracks = new ArrayCollection;
     }
 
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
+    }
+
+    public function updateName($name) {
+        $this->name = $name;
     }
 
     /**
