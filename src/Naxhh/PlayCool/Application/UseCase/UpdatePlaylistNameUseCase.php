@@ -5,6 +5,7 @@ namespace Naxhh\PlayCool\Application\UseCase;
 use Naxhh\PlayCool\Application\Contract\UseCase;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
+use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 
 /**
  * Updates the name of a playlist.
@@ -20,7 +21,9 @@ class UpdatePlaylistNameUseCase implements UseCase
     public function handle(Command $command) {
         $request = $command->getRequest();
 
-        $playlist = $this->playlist_repository->get($request->get('name'));
+        $playlist = $this->playlist_repository->get(
+            new PlaylistIdentity($request->get('name'))
+        );
         $playlist->updateName($request->get('new_name'));
 
         $this->playlist_repository->add($playlist);

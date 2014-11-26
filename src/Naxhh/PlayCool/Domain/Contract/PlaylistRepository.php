@@ -3,6 +3,7 @@
 namespace Naxhh\PlayCool\Domain\Contract;
 
 use Naxhh\PlayCool\Domain\Entity\Playlist;
+use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 
 /**
  * Repository interface for the Playlist.
@@ -26,10 +27,10 @@ interface PlaylistRepository
     public function remove(Playlist $playlist);
 
     /**
-     * Retrieves a playlist by the given name.
+     * Retrieves a playlist by id.
      *
-     * @param string $playlist_name The name of the playlist.
+     * @param PlaylistIdentity $identity The identity of the playlist.
      * @return Playlist
      */
-    public function get($playlist_name);
+    public function get(PlaylistIdentity $identity);
 }
