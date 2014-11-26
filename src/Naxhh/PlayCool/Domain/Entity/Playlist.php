@@ -36,6 +36,11 @@ class Playlist
         $this->tracks = new ArrayCollection;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     /**
      * Get the list of tracks for the playlist.
      *
