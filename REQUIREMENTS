@@ -1,4 +1,4 @@
-Playlist
+Feature: Be able to create playlist and add tracks.
 
 Given I don't have any playlist
 When I create a new playlist with the name "My amazing playlist"
@@ -18,7 +18,21 @@ Given that I have a playlist named "My playlist" with
 When I remove the track "My track" from the playlist "My playlist"
 Then I should have a playlist named "My playlist" with 0 tracks
 
+
+
+Feature: Be able to search tracks.
+
+Given I want to search a track
+When I search for "Amazing track"
+Then I should get a list of tracks with one named "Amazing track"
+
+
+
+
+
 ---
+Feature: NOT DONE FOR NOW :)
+
 
 Given that I have a playlist named "My playlist"
  And I'm a valid user
@@ -29,3 +43,5 @@ Then I should have a playlist named "My amazing playlist"
 Given that I have a playlist named "My playlist"
 When I delete the playlist "My playlist"
 Then I should not have a playlist named "My playlist"
+
+---
