@@ -17,21 +17,4 @@ $app->before(function(Request $request) {
 });
 
 
-$app->post('/api/v1/playlists', function(Request $request) {
-    $name = $request->request->get('name');
-
-
-    $playlist_repository = new Naxhh\PlayCool\Infrastructure\Repository\Dummy\PlaylistRepository;
-    $command = new Naxhh\PlayCool\Application\Command\CreatePlaylistCommand($name);
-    $use_case = new Naxhh\PlayCool\Application\UseCase\CreatePlaylistUseCase($playlist_repository);
-
-    $playlist = $use_case->handle($command);
-
-    return new JsonResponse(
-        array(
-            'name' => $playlist->getName(),
-            'tracks' => $playlist->getTracks()
-        ),
-        201
-    );
-});
+$app->post('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\CreatePlaylist::execute');
