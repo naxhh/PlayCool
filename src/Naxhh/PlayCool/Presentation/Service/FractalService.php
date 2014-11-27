@@ -6,6 +6,9 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use League\Fractal;
 
+/**
+ * Creates the Fractal manager to transform data.
+ */
 class FractalService implements ServiceProviderInterface
 {
     public function register(Application $app) {

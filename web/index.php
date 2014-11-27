@@ -13,7 +13,6 @@ $app['debug'] = true;
 // Services.
 $app->register(new Naxhh\PlayCool\Presentation\Service\FractalService);
 
-
 // Routes.
 require __DIR__ . DS . '..' . DS . 'src' . DS . 'Naxhh' . DS . 'PlayCool' . DS . 'Presentation' . DS . 'Routes.php';
 

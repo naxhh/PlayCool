@@ -16,13 +16,8 @@ class CreatePlaylist
 {
     public function execute(Request $request, Application $app) {
 
-        $name = $request->request->get('name');
-
-        $playlist_repository = new PlaylistRepository;
-        $command = new CreatePlaylistCommand($name);
-        $use_case = new CreatePlaylistUseCase($playlist_repository);
-
-        $playlist = $use_case->handle($command);
+        $name     = $request->request->get('name');
+        $playlist = $this->buildUseCase()->handle(new CreatePlaylistCommand($name));
 
         $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
 
@@ -30,5 +25,10 @@ class CreatePlaylist
             $app['fractal']->createData($resource)->toArray(),
             201
         );
+    }
+
+    private function buildUseCase() {
+        $playlist_repository = new PlaylistRepository;
+        return new CreatePlaylistUseCase($playlist_repository);
     }
 }
