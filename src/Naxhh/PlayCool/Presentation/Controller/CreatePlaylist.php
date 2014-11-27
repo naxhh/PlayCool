@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Naxhh\PlayCool\Infrastructure\Repository\Dummy\PlaylistRepository;
 use Naxhh\PlayCool\Application\Command\CreatePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\CreatePlaylistUseCase;
+use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
+use League\Fractal;
 
 class CreatePlaylist
 {
@@ -21,11 +23,11 @@ class CreatePlaylist
 
         $playlist = $use_case->handle($command);
 
+        $fractal = new Fractal\Manager;
+        $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
+
         return new JsonResponse(
-            array(
-                'name' => $playlist->getName(),
-                'tracks' => $playlist->getTracks()
-            ),
+            $fractal->createData($resource)->toArray(),
             201
         );
     }
