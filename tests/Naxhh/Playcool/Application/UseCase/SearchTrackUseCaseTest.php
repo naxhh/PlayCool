@@ -15,7 +15,7 @@ class SearchTrackUseCaseTest extends \PHPUnit_Framework_TestCase
             Track::create('Amazing track')
         ));
 
-        $track_repository = $this->getMock('TrackRepository', array('getListByName'));
+        $track_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\TrackRepository');
         $track_repository->expects($this->any())
             ->method('getListByName')
             ->will($this->returnValue($track_list));
