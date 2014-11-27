@@ -2,6 +2,7 @@
 
 namespace Naxhh\PlayCool\Presentation\Controller;
 
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -13,7 +14,7 @@ use League\Fractal;
 
 class CreatePlaylist
 {
-    public function execute(Request $request) {
+    public function execute(Request $request, Application $app) {
 
         $name = $request->request->get('name');
 
@@ -23,11 +24,10 @@ class CreatePlaylist
 
         $playlist = $use_case->handle($command);
 
-        $fractal = new Fractal\Manager;
         $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
 
         return new JsonResponse(
-            $fractal->createData($resource)->toArray(),
+            $app['fractal']->createData($resource)->toArray(),
             201
         );
     }
