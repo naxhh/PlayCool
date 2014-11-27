@@ -46,6 +46,15 @@ class Playlist
     }
 
     /**
+     * Returns the id of the playlist.
+     *
+     * @return string
+     */
+    public function getId() {
+        return $this->id->getId();
+    }
+
+    /**
      * Retrieves the current name of the playlist.
      *
      * @return string
