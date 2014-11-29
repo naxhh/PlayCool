@@ -1,6 +1,6 @@
 <?php
 
-namespace Naxhh\PlayCool\Domain\Contract;;
+namespace Naxhh\PlayCool\Domain\Contract;
 
 interface TrackRepository
 {
