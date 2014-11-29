@@ -33,4 +33,11 @@ interface PlaylistRepository
      * @return Playlist
      */
     public function get(PlaylistIdentity $identity);
+
+    /**
+     * Retrieves all the playlists.
+     *
+     * @return Playlist[]
+     */
+    public function getAll();
 }
