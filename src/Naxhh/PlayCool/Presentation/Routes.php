@@ -17,6 +17,8 @@ $app->before(function(Request $request) use($app) {
 });
 
 $app->post('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\CreatePlaylist::execute');
+
+$app->get('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetPlaylist::execute');
 $app->put('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\UpdatePlaylist::execute');
 $app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\RemovePlaylist::execute');
 
