@@ -11,11 +11,11 @@ use Naxhh\PlayCool\Domain\Aggregate\SearchAggregate;
 class SearchTransformer extends TransformerAbstract
 {
     /**
-     * Includes the tracks and the albums.
+     * Includes the tracks, albums and artists in the search results.
      *
      * @var array
      */
-    protected $defaultIncludes = array('tracks', 'albums');
+    protected $defaultIncludes = array('tracks', 'albums', 'artists');
 
     public function transform(SearchAggregate $search) {
         return array();
@@ -27,5 +27,9 @@ class SearchTransformer extends TransformerAbstract
 
     public function includeAlbums(SearchAggregate $search) {
         return $this->collection($search->getAlbums(), new AlbumTransformer);
+    }
+
+    public function includeArtists(SearchAggregate $search) {
+        return $this->collection($search->getArtists(), new ArtistTransformer);
     }
 }
