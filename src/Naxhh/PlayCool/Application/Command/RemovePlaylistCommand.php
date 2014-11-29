@@ -10,16 +10,16 @@ use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
  */
 class RemovePlaylistCommand implements Command
 {
-    private $name;
+    private $id;
 
-    public function __construct($name) {
-        $this->name = $name;
+    public function __construct($id) {
+        $this->id = $id;
     }
 
     public function getRequest()
     {
         return new ArrayCollection(array(
-            'name' => $this->name
+            'id' => $this->id
         ));
     }
 }

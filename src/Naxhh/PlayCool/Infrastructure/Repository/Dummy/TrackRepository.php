@@ -10,9 +10,9 @@ class TrackRepository implements DomainTrackRepository
     public function getListByName($name) {
         $tracks = array();
 
-        $tracks[] = Track::create($name);
-        $tracks[] = Track::create($name . ' something');
-        $tracks[] = Track::create('Something ' . $name . ' something');
+        $tracks[] = Track::create($name, $name);
+        $tracks[] = Track::create($name . 's', $name . ' something');
+        $tracks[] = Track::create('s' . $name . 's', 'Something ' . $name . ' something');
 
         return $tracks;
     }

@@ -10,7 +10,7 @@ class CreatePlaylistUseCaseTest extends \PHPUnit_Framework_TestCase
     {
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
 
-        $command = new CreatePlaylistCommand('My playlist');
+        $command  = new CreatePlaylistCommand('My playlist');
         $use_case = new CreatePlaylistUseCase($playlist_repository);
 
         $playlist = $use_case->handle($command);
@@ -27,7 +27,7 @@ class CreatePlaylistUseCaseTest extends \PHPUnit_Framework_TestCase
         $playlist_repository->expects($this->once())
             ->method('add');
 
-        $command = new CreatePlaylistCommand('My playlist');
+        $command  = new CreatePlaylistCommand('My playlist');
         $use_case = new CreatePlaylistUseCase($playlist_repository);
 
         $playlist = $use_case->handle($command);

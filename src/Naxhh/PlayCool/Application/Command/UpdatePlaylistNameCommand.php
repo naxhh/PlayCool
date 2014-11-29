@@ -11,18 +11,18 @@ use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
  */
 class UpdatePlaylistNameCommand implements Command
 {
-    private $name;
+    private $id;
     private $new_name;
 
-    public function __construct($name, $new_name) {
-        $this->name = $name;
+    public function __construct($id, $new_name) {
+        $this->id       = $id;
         $this->new_name = $new_name;
     }
 
     public function getRequest()
     {
         return new ArrayCollection(array(
-            'name'     => $this->name,
+            'id'       => $this->id,
             'new_name' => $this->new_name
         ));
     }

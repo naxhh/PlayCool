@@ -8,11 +8,10 @@ use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
 
 class SearchTrackUseCaseTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSearchTrackReturnsAListOfTracks()
-    {
+    public function testSearchTrackReturnsAListOfTracks() {
         $track_list = new ArrayCollection(array(
-            Track::create('Track 1'),
-            Track::create('Amazing track')
+            Track::create('track 1 id', 'Track 1'),
+            Track::create('amazing track id', 'Amazing track')
         ));
 
         $track_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\TrackRepository');

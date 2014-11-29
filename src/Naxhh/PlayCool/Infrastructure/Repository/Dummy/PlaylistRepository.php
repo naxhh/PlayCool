@@ -30,6 +30,6 @@ class PlaylistRepository implements DomainPlaylistRepository
      * @return Playlist
      */
     public function get(PlaylistIdentity $identity) {
-        return Playlist::create($identity->getId());
+        return Playlist::create($identity->getId(), 'Name of the playlist');
     }
 }

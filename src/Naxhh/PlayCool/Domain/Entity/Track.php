@@ -23,11 +23,12 @@ class Track
     /**
      * Public interface for creating a new track.
      *
+     * @param  string $id The unique id of the track.
      * @param  string $track_name The name of the track.
      * @return Track
      */
-    public static function create($track_name) {
-        return new self(new TrackIdentity($track_name), $track_name);
+    public static function create($id, $track_name) {
+        return new self(new TrackIdentity($id), $track_name);
     }
 
     private function __construct(TrackIdentity $id, $name) {

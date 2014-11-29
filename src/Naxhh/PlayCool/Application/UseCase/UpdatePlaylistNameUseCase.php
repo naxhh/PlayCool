@@ -22,7 +22,7 @@ class UpdatePlaylistNameUseCase implements UseCase
         $request = $command->getRequest();
 
         $playlist = $this->playlist_repository->get(
-            new PlaylistIdentity($request->get('name'))
+            new PlaylistIdentity($request->get('id'))
         );
         $playlist->updateName($request->get('new_name'));
 

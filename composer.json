@@ -4,7 +4,10 @@
     "license": "MIT",
     "type": "project",
     "autoload": {
-        "psr-4": { "": "src/" }
+        "psr-4": {
+            "Test\\": "tests/",
+            "": "src/"
+        }
     },
     "require": {
 

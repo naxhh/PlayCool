@@ -3,13 +3,12 @@
 namespace Naxhh\Playcool\Application\UseCase;
 
 use Naxhh\Playcool\Application\Command\RemovePlaylistCommand;
-use Naxhh\Playcool\Domain\Entity\Playlist;
+use Test\Helper\PlaylistBuilder;
 
 class RemovePlaylistUseCaseTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPlaylistIsRemovedFromRepository()
-    {
-        $playlist = Playlist::create('My playlist');
+    public function testPlaylistIsRemovedFromRepository() {
+        $playlist = PlaylistBuilder::get()->withName('Playlist id')->build();
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
@@ -18,7 +17,7 @@ class RemovePlaylistUseCaseTest extends \PHPUnit_Framework_TestCase
         $playlist_repository->expects($this->once())
             ->method('remove');
 
-        $command  = new RemovePlaylistCommand('My playlist');
+        $command  = new RemovePlaylistCommand('Playlist id');
         $use_case = new RemovePlaylistUseCase($playlist_repository);
 
         $use_case->handle($command);
