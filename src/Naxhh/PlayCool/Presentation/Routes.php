@@ -16,13 +16,16 @@ $app->before(function(Request $request) use($app) {
 
 });
 
-
 $app->post('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\CreatePlaylist::execute');
+$app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\RemovePlaylist::execute');
 
 $app->error(function(\Exception $e, $code) {
     switch ($code) {
         case 404:
             $message = 'Resource not found';
+            break;
+        case 405:
+            $message = 'This resource does not allow this method';
             break;
         case 415:
             $message = 'Only application/json content-type is accepted';

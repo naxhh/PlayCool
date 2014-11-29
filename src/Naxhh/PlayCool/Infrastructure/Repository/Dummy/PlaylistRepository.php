@@ -29,5 +29,7 @@ class PlaylistRepository implements DomainPlaylistRepository
      * @param PlaylistIdentity $identity The identity of the playlist.
      * @return Playlist
      */
-    public function get(PlaylistIdentity $identity) {}
+    public function get(PlaylistIdentity $identity) {
+        return Playlist::create($identity->getId());
+    }
 }
