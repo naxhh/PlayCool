@@ -3,13 +3,12 @@
 namespace Naxhh\Playcool\Application\UseCase;
 
 use Naxhh\Playcool\Application\Command\UpdatePlaylistNameCommand;
-use Naxhh\Playcool\Domain\Entity\Playlist;
+use Test\Helper\PlaylistBuilder;
 
 class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPlaylistResponseIsReturned()
-    {
-        $old_playlist = Playlist::create('id', 'My playlist');
+    public function testPlaylistResponseIsReturned() {
+        $old_playlist = PlaylistBuilder::get()->withId('id')->build();
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
@@ -27,9 +26,8 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testPlaylistIsSavedInRepository()
-    {
-        $old_playlist = Playlist::create('id', 'My playlist');
+    public function testPlaylistIsSavedInRepository() {
+        $old_playlist = PlaylistBuilder::get()->withId('id')->build();
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
