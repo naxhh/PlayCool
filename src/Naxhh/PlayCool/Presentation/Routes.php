@@ -17,9 +17,10 @@ $app->before(function(Request $request) use($app) {
 });
 
 $app->post('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\CreatePlaylist::execute');
-
 $app->put('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\UpdatePlaylist::execute');
 $app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\RemovePlaylist::execute');
+
+$app->get('/api/v1/search', 'Naxhh\PlayCool\Presentation\Controller\Search::execute');
 
 $app->error(function(\Exception $e, $code) {
     switch ($code) {
