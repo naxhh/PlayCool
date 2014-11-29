@@ -32,11 +32,12 @@ class Playlist
     /**
      * Public interface for creating a new playlist.
      *
-     * @param  string $playlist_name The name of the playlist
+     * @param  string $id Unique id of the playlist.
+     * @param  string $playlist_name The name of the playlist.
      * @return Playlist
      */
-    public static function create($playlist_name) {
-        return new self(new PlaylistIdentity($playlist_name), $playlist_name);
+    public static function create($id, $playlist_name) {
+        return new self(new PlaylistIdentity($id), $playlist_name);
     }
 
     private function __construct(PlaylistIdentity $id, $name) {

@@ -21,7 +21,7 @@ class CreatePlaylistUseCase implements UseCase
     public function handle(Command $command) {
         $request = $command->getRequest();
 
-        $playlist = Playlist::create($request->get('name'));
+        $playlist = Playlist::create(uniqid(), $request->get('name'));
 
         $this->playlist_repository->add($playlist);
 

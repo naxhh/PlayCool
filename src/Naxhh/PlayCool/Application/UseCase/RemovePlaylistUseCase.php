@@ -8,7 +8,7 @@ use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 
 /**
- * Removes a playlist given a name.
+ * Removes a playlist.
  */
 class RemovePlaylistUseCase implements UseCase
 {
@@ -22,7 +22,7 @@ class RemovePlaylistUseCase implements UseCase
         $request = $command->getRequest();
 
         $playlist = $this->playlist_repository->get(
-            new PlaylistIdentity($request->get('name'))
+            new PlaylistIdentity($request->get('id'))
         );
 
         $this->playlist_repository->remove($playlist);

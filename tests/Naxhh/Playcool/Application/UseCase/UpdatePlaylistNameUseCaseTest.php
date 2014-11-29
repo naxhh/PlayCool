@@ -9,14 +9,14 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testPlaylistResponseIsReturned()
     {
-        $old_playlist = Playlist::create('My playlist');
+        $old_playlist = Playlist::create('id', 'My playlist');
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
             ->method('get')
             ->will($this->returnValue($old_playlist));
 
-        $command = new UpdatePlaylistNameCommand('My playlist', 'My new playlist name');
+        $command = new UpdatePlaylistNameCommand('id', 'My new playlist name');
         $use_case = new UpdatePlaylistNameUseCase($playlist_repository);
 
         $playlist = $use_case->handle($command);
@@ -29,7 +29,7 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
 
     public function testPlaylistIsSavedInRepository()
     {
-        $old_playlist = Playlist::create('My playlist');
+        $old_playlist = Playlist::create('id', 'My playlist');
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
@@ -38,7 +38,7 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
         $playlist_repository->expects($this->once())
             ->method('add');
 
-        $command  = new UpdatePlaylistNameCommand('My playlist', 'My new playlist name');
+        $command  = new UpdatePlaylistNameCommand('id', 'My new playlist name');
         $use_case = new UpdatePlaylistNameUseCase($playlist_repository);
 
         $playlist = $use_case->handle($command);
