@@ -17,8 +17,6 @@ class SearchTrackUseCase implements UseCase
     public function handle(Command $command) {
         $request = $command->getRequest();
 
-        $track_list = $this->track_repository->getListByName($request->get('search_term'));
-
-        return $track_list;
+        return $this->track_repository->getListByName($request->get('search_term'));
     }
 }
