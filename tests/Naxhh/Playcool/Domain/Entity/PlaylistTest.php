@@ -15,7 +15,7 @@ class PlaylistTest extends \PHPUnit_Framework_TestCase
 
     public function testAddTrackToPlaylist() {
         $playlist = Playlist::create('My playlist');
-        $playlist->addTrack('My track');
+        $playlist->addTrack(Track::create('id', 'My track'));
 
         $this->assertCount(
             1,
@@ -27,15 +27,15 @@ class PlaylistTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Naxhh\Playcool\Domain\Exception\TrackAlreadyAddedException');
 
         $playlist = Playlist::create('My playlist');
-        $playlist->addTrack('My track');
-        $playlist->addTrack('My track');
+        $playlist->addTrack(Track::create('id', 'My track'));
+        $playlist->addTrack(Track::create('id', 'My track'));
     }
 
     public function testRemoveATrackFromThePlaylist() {
         $playlist = Playlist::create('My playlist');
-        $playlist->addTrack('My track');
+        $playlist->addTrack(Track::create('id', 'My track'));
 
-        $playlist->removeTrack('My track');
+        $playlist->removeTrack(Track::create('id', 'My track'));
 
         $this->assertCount(
             0,

@@ -85,12 +85,11 @@ class Playlist
     /**
      * Adds a track into the playlist. It fails if the track is already in the playlist.
      *
-     * @param string $track_name The name of the track to add.
+     * @param  Track $track The track to add to the playlist.
      * @return void
      * @throws Exception\TrackAlreadyAddedException If the track is already in the playlist.
      */
-    public function addTrack($track_name) {
-        $track = Track::create($track_name);
+    public function addTrack(Track $track) {
 
         $track_already_exists = function($key, $item) use ($track) {
             return $track->getId() == $item->getId();
@@ -102,16 +101,16 @@ class Playlist
             ));
         }
 
-        $this->tracks->set($track->getName(), $track);
+        $this->tracks->set($track->getId(), $track);
     }
 
     /**
      * Removes a track from the playlist.
      *
-     * @param string $track_name The name of the track.
+     * @param  Track $track The track to remove from the playlist.
      * @return void
      */
-    public function removeTrack($track_name) {
-        $this->tracks->remove($track_name);
+    public function removeTrack(Track $track) {
+        $this->tracks->remove($track->getId());
     }
 }
