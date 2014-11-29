@@ -16,6 +16,7 @@ $app->before(function(Request $request) use($app) {
 
 });
 
+$app->get('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\GetAllPlaylists::execute');
 $app->post('/api/v1/playlists', 'Naxhh\PlayCool\Presentation\Controller\CreatePlaylist::execute');
 
 $app->get('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetPlaylist::execute');
@@ -35,6 +36,8 @@ $app->error(function(\Exception $e, $code) {
         case 415:
             $message = 'Only application/json content-type is accepted';
             break;
+        case 500:
+            $message = 'There is some problem in the server. Please report this!';
         default:
             $message = 'You have found a super weird error, have you considered to become a QA?';
             break;

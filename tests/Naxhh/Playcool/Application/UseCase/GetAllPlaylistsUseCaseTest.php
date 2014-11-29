@@ -8,25 +8,22 @@ use Test\Helper\PlaylistBuilder;
 class GetAllPlaylistsUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testPlaylistIsRemovedFromRepository() {
-        $playlist = PlaylistBuilder::get()
-            ->withId('Playlist id')
-            ->withName('Playlist name')
-            ->build()
-        ;
+        $playlists = array(
+            PlaylistBuilder::get()->build(),
+            PlaylistBuilder::get()->build()
+        );
 
         $playlist_repository = $this->getMock('Naxhh\PlayCool\Domain\Contract\PlaylistRepository');
         $playlist_repository->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($playlist));
+            ->method('getAll')
+            ->will($this->returnValue($playlists));
 
-        $command  = new GetAllPlaylistsCommand('Playlist id');
+        $command  = new GetAllPlaylistsCommand();
         $use_case = new GetAllPlaylistsUseCase($playlist_repository);
 
-        $playlist = $use_case->handle($command);
-
-        $this->assertSame(
-            'Playlist name',
-            $playlist->getName()
+        $this->assertCount(
+            2,
+            $use_case->handle($command)
         );
     }
 }
