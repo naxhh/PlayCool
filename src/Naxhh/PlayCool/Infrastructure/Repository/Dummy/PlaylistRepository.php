@@ -32,4 +32,16 @@ class PlaylistRepository implements DomainPlaylistRepository
     public function get(PlaylistIdentity $identity) {
         return Playlist::create($identity->getId(), 'Name of the playlist');
     }
+
+    /**
+     * Retrieves all the playlists.
+     *
+     * @return Playlist[]
+     */
+    public function getAll() {
+        return array(
+            Playlist::create('Asdf13rg', 'One playlist'),
+            Playlist::create('FdsSdD21', 'Another playlist'),
+        );
+    }
 }
