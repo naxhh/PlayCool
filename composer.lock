@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1dca12336b5647dc3f79d21d962c3f30",
+    "hash": "fa777332864a5e0908d754028ec2419d",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -72,6 +72,51 @@
                 "iterator"
             ],
             "time": "2014-02-03 23:07:43"
+        },
+        {
+            "name": "jwilsson/spotify-web-api-php",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jwilsson/spotify-web-api-php.git",
+                "reference": "0d9ea746aa942d215301fe463611ef1a3d4b9b93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/0d9ea746aa942d215301fe463611ef1a3d4b9b93",
+                "reference": "0d9ea746aa942d215301fe463611ef1a3d4b9b93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "satooshi/php-coveralls": "dev-master",
+                "vlucas/phpdotenv": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SpotifyWebAPI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wilsson",
+                    "email": "jonathan.wilsson@gmail.com"
+                }
+            ],
+            "description": "PHP implementation of Spotify's Web API.",
+            "homepage": "https://github.com/jwilsson/spotify-web-api-php",
+            "keywords": [
+                "spotify"
+            ],
+            "time": "2014-10-26 16:23:57"
         },
         {
             "name": "league/fractal",
