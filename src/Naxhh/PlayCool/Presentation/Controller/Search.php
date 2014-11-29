@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Naxhh\PlayCool\Infrastructure\Repository\Dummy\TrackRepository;
 use Naxhh\PlayCool\Application\Command\SearchTrackCommand;
 use Naxhh\PlayCool\Application\UseCase\SearchTrackUseCase;
-use Naxhh\PlayCool\Presentation\Transformer\TrackTransformer;
+
+use Naxhh\PlayCool\Infrastructure\Repository\Dummy\AlbumRepository;
+use Naxhh\PlayCool\Application\Command\SearchAlbumCommand;
+use Naxhh\PlayCool\Application\UseCase\SearchAlbumUseCase;
+
+
+use Naxhh\PlayCool\Presentation\Transformer\SearchTransformer;
 use League\Fractal;
 
 class Search
@@ -18,9 +24,11 @@ class Search
 
         $term = $request->query->get('q');
 
-        $tracks = $this->buildUseCase()->handle(new SearchTrackCommand($term));
+        $search = new \Naxhh\PlayCool\Domain\Aggregate\SearchAggregate();
+        $search->setTracks($this->getTracks($term));
+        $search->setAlbums($this->getAlbums($term));
 
-        $resource = new Fractal\Resource\Collection($tracks, new TrackTransformer);
+        $resource = new Fractal\Resource\Item($search, new SearchTransformer);
 
         return new JsonResponse(
             $app['fractal']->createData($resource)->toArray(),
@@ -28,8 +36,15 @@ class Search
         );
     }
 
-    private function buildUseCase() {
-        $playlist_repository = new TrackRepository;
-        return new SearchTrackUseCase($playlist_repository);
+    private function getTracks($term) {
+        $use_case = new SearchTrackUseCase(new TrackRepository);
+
+        return $use_case->handle(new SearchTrackCommand($term));
+    }
+
+    private function getAlbums($term) {
+        $use_case = new SearchAlbumUseCase(new AlbumRepository);
+
+        return $use_case->handle(new SearchAlbumCommand($term));
     }
 }

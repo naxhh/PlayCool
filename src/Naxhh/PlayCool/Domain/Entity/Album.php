@@ -73,4 +73,22 @@ class Album
     public function getTracks() {
         return $this->tracks;
     }
+
+    /**
+     * Returns the unique id of the album.
+     *
+     * @return string
+     */
+    public function getId() {
+        return $this->id->getId();
+    }
+
+    /**
+     * Returns the name of the album.
+     *
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
 }
