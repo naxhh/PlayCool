@@ -24,7 +24,7 @@ class Search
 
         return new JsonResponse(
             $app['fractal']->createData($resource)->toArray(),
-            201
+            200
         );
     }
 
