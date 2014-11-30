@@ -6,7 +6,6 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Naxhh\PlayCool\Infrastructure\Repository\Dummy\PlaylistRepository;
 use Naxhh\PlayCool\Application\Command\CreatePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\CreatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
@@ -14,7 +13,10 @@ use League\Fractal;
 
 class CreatePlaylist
 {
+    private $app;
+
     public function execute(Request $request, Application $app) {
+        $this->app = $app;
 
         $name     = $request->request->get('name');
         $playlist = $this->buildUseCase()->handle(new CreatePlaylistCommand($name));
@@ -28,7 +30,6 @@ class CreatePlaylist
     }
 
     private function buildUseCase() {
-        $playlist_repository = new PlaylistRepository;
-        return new CreatePlaylistUseCase($playlist_repository);
+        return new CreatePlaylistUseCase($this->app['repo.playlist']);
     }
 }

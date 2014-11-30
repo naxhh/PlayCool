@@ -14,7 +14,10 @@ use League\Fractal;
 
 class UpdatePlaylist
 {
+    private $app;
+
     public function execute(Request $request, Application $app, $id) {
+        $this->app = $app;
 
         $name     = $request->request->get('name');
         $playlist = $this->buildUseCase()->handle(new UpdatePlaylistNameCommand($id, $name));
@@ -27,7 +30,6 @@ class UpdatePlaylist
     }
 
     private function buildUseCase() {
-        $playlist_repository = new PlaylistRepository;
-        return new UpdatePlaylistNameUseCase($playlist_repository);
+        return new UpdatePlaylistNameUseCase($this->app['repo.playlist']);
     }
 }
