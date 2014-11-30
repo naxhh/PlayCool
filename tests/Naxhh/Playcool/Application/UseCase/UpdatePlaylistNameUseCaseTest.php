@@ -2,10 +2,11 @@
 
 namespace Naxhh\Playcool\Application\UseCase;
 
-use Naxhh\Playcool\Application\Command\UpdatePlaylistNameCommand;
+use Naxhh\Playcool\Application\Command\UpdatePlaylistCommand;
+use Naxhh\PlayCool\Infrastructure\Repository\Spotify\TrackRepository;
 use Test\Helper\PlaylistBuilder;
 
-class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
+class UpdatePlaylistUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testPlaylistResponseIsReturned() {
         $old_playlist = PlaylistBuilder::get()->withId('id')->build();
@@ -15,8 +16,8 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($old_playlist));
 
-        $command = new UpdatePlaylistNameCommand('id', 'My new playlist name');
-        $use_case = new UpdatePlaylistNameUseCase($playlist_repository);
+        $command = new UpdatePlaylistCommand('id', 'My new playlist name');
+        $use_case = new UpdatePlaylistUseCase($playlist_repository, new TrackRepository(new \stdClass));
 
         $playlist = $use_case->handle($command);
 
@@ -36,8 +37,8 @@ class UpdatePlaylistNameUseCaseTest extends \PHPUnit_Framework_TestCase
         $playlist_repository->expects($this->once())
             ->method('add');
 
-        $command  = new UpdatePlaylistNameCommand('id', 'My new playlist name');
-        $use_case = new UpdatePlaylistNameUseCase($playlist_repository);
+        $command  = new UpdatePlaylistCommand('id', 'My new playlist name');
+        $use_case = new UpdatePlaylistUseCase($playlist_repository, new TrackRepository(new \stdClass));
 
         $playlist = $use_case->handle($command);
     }
