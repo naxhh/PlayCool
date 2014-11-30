@@ -4,18 +4,20 @@ namespace Naxhh\PlayCool\Infrastructure\Repository\File;
 
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository as DomainPlaylistRepository;
 use Naxhh\PlayCool\Domain\Entity\Playlist;
-use Naxhh\PlayCool\Domain\Entity\Track;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 use Naxhh\PlayCool\Domain\Exception\PlaylistNotFoundException;
+use Naxhh\PlayCool\Infrastructure\Contract\TrackBuilder;
 
 class PlaylistRepository implements DomainPlaylistRepository
 {
     private $path;
     private $content;
+    private $track_builder;
 
-    public function __construct($file_path) {
+    public function __construct($file_path, TrackBuilder $track_builder) {
         $this->path    = $file_path . 'playlists.json';
         $this->content = json_decode(file_get_contents($this->path), true);
+        $this->track_builder = $track_builder;
     }
 
     public function __destruct() {
@@ -91,7 +93,11 @@ class PlaylistRepository implements DomainPlaylistRepository
 
         if (isset($raw_playlist['tracks'])) {
             foreach ($raw_playlist['tracks'] as $raw_track) {
-                $playlist->addTrack(Track::create($raw_track['id'], $raw_track['name']));
+                $track = new \stdClass;
+                $track->id = $raw_track['id'];
+                $track->name = $raw_track['name'];
+
+                $playlist->addTrack($this->track_builder->buildTrack($track));
             }
         }
 

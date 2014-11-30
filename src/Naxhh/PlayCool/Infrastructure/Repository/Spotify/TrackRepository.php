@@ -3,13 +3,14 @@
 namespace Naxhh\PlayCool\Infrastructure\Repository\Spotify;
 
 use Naxhh\PlayCool\Domain\Contract\TrackRepository as DomainTrackRepository;
+use Naxhh\PlayCool\Infrastructure\Contract\TrackBuilder;
 use Naxhh\PlayCool\Domain\Entity\Track;
 use Naxhh\PlayCool\Domain\ValueObject\TrackIdentity;
 
 use Naxhh\PlayCool\Infrastructure\Spotify\NotFoundException;
 use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
 
-class TrackRepository implements DomainTrackRepository
+class TrackRepository implements DomainTrackRepository, TrackBuilder
 {
     private $spotify_api;
 
@@ -21,7 +22,7 @@ class TrackRepository implements DomainTrackRepository
         try {
             $raw_track = $this->spotify_api->getTrack($identity->getId());
 
-            return Track::create($raw_track->id, $raw_track->name);
+            return $this->buildTrack($raw_track);
         } catch (NotFoundException $e) {
             throw new TrackNotFoundException;
         }
@@ -35,13 +36,15 @@ class TrackRepository implements DomainTrackRepository
         }
 
         $result = $result->tracks->items;
-        $tracks = array();
 
-        foreach ($result as $track) {
-            $tracks[] = Track::create($track->id, $track->name);
+        return array_map(array($this, 'buildTrack'), $result);
+    }
+
+    public function buildTrack(\stdClass $track) {
+        if (!isset($track->id) || !isset($track->name)) {
+            throw new InvalidArgumentException('Id and name are mandatory for building the track object');
         }
-        unset($result);
 
-        return $tracks;
+        return Track::create($track->id, $track->name);
     }
 }
