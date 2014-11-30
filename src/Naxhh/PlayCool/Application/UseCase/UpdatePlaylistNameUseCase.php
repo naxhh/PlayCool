@@ -31,7 +31,9 @@ class UpdatePlaylistNameUseCase implements UseCase
         if (!is_null($request->get('new_name'))) {
             $playlist->updateName($request->get('new_name'));
         }
+
         $this->addTracks($playlist, $request->get('add_tracks'));
+        $this->removeTracks($playlist, $request->get('remove_tracks'));
 
         $this->playlist_repository->add($playlist);
 
@@ -41,6 +43,12 @@ class UpdatePlaylistNameUseCase implements UseCase
     private function addTracks($playlist, $tracks) {
         foreach ($tracks as $track) {
             $playlist->addTrack(Track::create($track['id'], $track['name']));
+        }
+    }
+
+    private function removeTracks($playlist, $tracks) {
+        foreach ($tracks as $track) {
+            $playlist->removeTrack(Track::create($track['id'], $track['name']));
         }
     }
 }

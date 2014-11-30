@@ -23,7 +23,8 @@ class UpdatePlaylist
             $command = new UpdatePlaylistNameCommand(
                 $id,
                 $request->request->get('name'),
-                $request->request->get('add-tracks')
+                $request->request->get('add-tracks'),
+                $request->request->get('remove-tracks')
             );
 
             $playlist = $this->buildUseCase()->handle($command);
