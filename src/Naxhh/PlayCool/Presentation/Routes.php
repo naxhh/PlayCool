@@ -27,6 +27,9 @@ $app->get('/api/v1/search', 'Naxhh\PlayCool\Presentation\Controller\Search::exec
 
 $app->error(function(\Exception $e, $code) {
     switch ($code) {
+        case 400:
+            $message = $e->getMessage() ?: 'Please check your entities to ensure that you are providing valid data';
+            break;
         case 404:
             $message = 'Resource not found';
             break;

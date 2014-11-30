@@ -5,6 +5,7 @@ namespace Naxhh\PlayCool\Infrastructure\Repository\File;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository as DomainPlaylistRepository;
 use Naxhh\PlayCool\Domain\Entity\Playlist;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
+use Naxhh\PlayCool\Domain\Exception\PlaylistNotFoundException;
 
 class PlaylistRepository implements DomainPlaylistRepository
 {
@@ -49,6 +50,10 @@ class PlaylistRepository implements DomainPlaylistRepository
      * @return Playlist
      */
     public function get(PlaylistIdentity $identity) {
+        if (!isset($this->content[$identity->getId()])) {
+            throw new PlaylistNotFoundException();
+        }
+
         $playlist = $this->content[$identity->getId()];
 
         return Playlist::create($playlist['id'], $playlist['name']);
