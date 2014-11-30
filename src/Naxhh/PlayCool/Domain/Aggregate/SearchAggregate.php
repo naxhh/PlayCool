@@ -2,10 +2,30 @@
 
 namespace Naxhh\PlayCool\Domain\Aggregate;
 
+/**
+ * Aggregates the serch results.
+ */
 class SearchAggregate
 {
+    /**
+     * List of tracks in the result.
+     *
+     * @var array
+     */
     private $tracks  = array();
+
+    /**
+     * List of albums in the result.
+     *
+     * @var array
+     */
     private $albums  = array();
+
+    /**
+     * List of artists in the result.
+     *
+     * @var array
+     */
     private $artists = array();
 
     public function setTracks($tracks) {
