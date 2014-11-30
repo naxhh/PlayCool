@@ -34,7 +34,7 @@ class GetAlbum
 
     private function buildUseCase() {
         return new GetAlbumTracksUseCase(
-            new AlbumRepository($this->app['spotify.api'])
+            $this->app['repo.album']
         );
     }
 }

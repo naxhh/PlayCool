@@ -43,7 +43,7 @@ class UpdatePlaylist
     private function buildUseCase() {
         return new UpdatePlaylistUseCase(
             $this->app['repo.playlist'],
-            new TrackRepository($this->app['spotify.api'])
+            $this->app['repo.track']
         );
     }
 }
