@@ -10,6 +10,7 @@ use Naxhh\PlayCool\Application\Command\UpdatePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
 use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
+use Naxhh\PlayCool\Domain\Exception\PlaylistNotFoundException;
 use Naxhh\PlayCool\Infrastructure\Repository\Spotify\TrackRepository;
 use League\Fractal;
 
@@ -37,6 +38,8 @@ class UpdatePlaylist
             );
         } catch (InvalidPlaylistNameException $e) {
             $this->app->abort(400, 'You should provide a valid name for the playlist');
+        } catch (PlaylistNotFoundException $e) {
+            $this->app->abort(404);
         }
     }
 
