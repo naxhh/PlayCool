@@ -6,6 +6,7 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Naxhh\PlayCool\Infrastructure\Spotify\Api as SpotifyApi;
 use Naxhh\PlayCool\Infrastructure\Spotify\Credentials;
+use Naxhh\PlayCool\Infrastructure\Spotify\RuntimeCacheDecorator;
 use SpotifyWebAPI\SpotifyWebAPI as ThirdPartApi;
 
 /**
@@ -24,7 +25,7 @@ class SpotifyApiService implements ServiceProviderInterface
 
             $api->setAccessToken($session->getAccessToken());
 
-            return new SpotifyApi($api);
+            return new RuntimeCacheDecorator(new SpotifyApi($api));
         });
     }
 

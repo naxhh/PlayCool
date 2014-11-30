@@ -13,7 +13,7 @@ class SearchAlbumCommand implements Command
     private $search_term;
 
     public function __construct($search_term) {
-        $this->search_term = $search_term;
+        $this->search_term = str_replace(' ', '+', trim($search_term));
     }
 
     public function getRequest()

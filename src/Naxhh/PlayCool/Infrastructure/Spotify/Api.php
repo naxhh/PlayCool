@@ -8,9 +8,6 @@ use SpotifyWebAPI\SpotifyWebAPIException;
  */
 class Api
 {
-    //TEMPORAL FOR TESTING.
-    private static $searches = array();
-
     /**
      * Third party SDK for spotify API.
      */
@@ -27,17 +24,11 @@ class Api
      * @return \stdClass
      */
     public function search($term) {
-        if (isset(self::$searches[$term])) {
-            return self::$searches[$term];
-        }
-
-        self::$searches[$term] = $this->external_api->search($term, array(
+        return $this->external_api->search($term, array(
             'album',
             'artist',
             'track'
         ));
-
-        return self::$searches[$term];
     }
 
     /**
