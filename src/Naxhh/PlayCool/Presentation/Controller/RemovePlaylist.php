@@ -6,7 +6,6 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Naxhh\PlayCool\Infrastructure\Repository\Dummy\PlaylistRepository;
 use Naxhh\PlayCool\Application\Command\RemovePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\RemovePlaylistUseCase;
 
