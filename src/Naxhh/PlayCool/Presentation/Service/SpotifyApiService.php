@@ -15,18 +15,18 @@ use SpotifyWebAPI\SpotifyWebAPI as ThirdPartApi;
 class SpotifyApiService implements ServiceProviderInterface
 {
     public function register(Application $app) {
-        $this->api = $api = new ThirdPartApi;
+        $app['spotify.api'] = $app->share(function() {
+            $api = new ThirdPartApi;
 
-        $app['spotify.api'] = $app->share(function() use($api) {
+            // TODO: Implement some sort of caching for the token.
+            $session = new \SpotifyWebAPI\Session(Credentials::CLIENT_ID, Credentials::CLIENT_SECRET, '');
+            $session->requestCredentialsToken(array());
+
+            $api->setAccessToken($session->getAccessToken());
+
             return new SpotifyApi($api);
         });
     }
 
-    public function boot(Application $app) {
-        // TODO: Implement some sort of caching for the token.
-        $session = new \SpotifyWebAPI\Session(Credentials::CLIENT_ID, Credentials::CLIENT_SECRET, '');
-        $session->requestCredentialsToken(array());
-
-        $this->api->setAccessToken($session->getAccessToken());
-    }
+    public function boot(Application $app) {}
 }
