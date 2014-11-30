@@ -7,9 +7,12 @@ use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\AlbumRepository;
 use Naxhh\PlayCool\Domain\ValueObject\AlbumIdentity;
 
+/**
+ * Retrieves album tracks.
+ */
 class GetAlbumTracksUseCase implements UseCase
 {
-    private $playlist_repository;
+    private $album_repository;
 
     public function __construct(AlbumRepository $album_repository) {
         $this->album_repository = $album_repository;

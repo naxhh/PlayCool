@@ -7,8 +7,7 @@ use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
 use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
 
 /**
- * Updates the name of a playlist.
- * You should provide the current name of the playlist and the new one.
+ * Updates a playlist, updating name or adding/removing tracks.
  */
 class UpdatePlaylistCommand implements Command
 {

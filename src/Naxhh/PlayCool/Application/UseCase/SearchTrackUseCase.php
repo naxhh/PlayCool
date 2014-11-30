@@ -6,6 +6,9 @@ use Naxhh\PlayCool\Application\Contract\UseCase;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\TrackRepository;
 
+/**
+ * Serachs by track.
+ */
 class SearchTrackUseCase implements UseCase
 {
     private $track_repository;

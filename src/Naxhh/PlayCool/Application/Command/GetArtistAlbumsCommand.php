@@ -6,20 +6,20 @@ use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
 
 /**
- * Searchs by artist.
+ * Retrieves an artist with his albums.
  */
-class SearchArtistCommand implements Command
+class GetArtistAlbumsCommand implements Command
 {
-    private $search_term;
+    private $id;
 
-    public function __construct($search_term) {
-        $this->search_term = $search_term;
+    public function __construct($id) {
+        $this->id = $id;
     }
 
     public function getRequest()
     {
         return new ArrayCollection(array(
-            'search_term' => $this->search_term
+            'id' => $this->id
         ));
     }
 }

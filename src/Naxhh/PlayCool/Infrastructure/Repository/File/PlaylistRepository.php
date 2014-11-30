@@ -8,10 +8,31 @@ use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 use Naxhh\PlayCool\Domain\Exception\PlaylistNotFoundException;
 use Naxhh\PlayCool\Infrastructure\Contract\TrackBuilder;
 
+/**
+ * This repository saves data to a file.
+ * Is not expected to be used in production and is only for testing persistence while developing.
+ */
 class PlaylistRepository implements DomainPlaylistRepository
 {
+    /**
+     * The path where the playlists file will be stored.
+     *
+     * @var string
+     */
     private $path;
+
+    /**
+     * The content of the playlists file.
+     *
+     * @var string
+     */
     private $content;
+
+    /**
+     * Creates valid Track objects.
+     *
+     * @var TrackBuilder
+     */
     private $track_builder;
 
     public function __construct($file_path, TrackBuilder $track_builder) {
