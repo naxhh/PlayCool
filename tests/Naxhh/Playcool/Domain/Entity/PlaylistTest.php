@@ -25,14 +25,6 @@ class PlaylistTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testThatTheSameSongCantBeAddedToThePlaylist() {
-        $this->setExpectedException('Naxhh\Playcool\Domain\Exception\TrackAlreadyAddedException');
-
-        $playlist = PlaylistBuilder::get()->withName('My playlist')->build();
-        $playlist->addTrack(Track::create('id', 'My track'));
-        $playlist->addTrack(Track::create('id', 'My track'));
-    }
-
     public function testRemoveATrackFromThePlaylist() {
         $playlist = PlaylistBuilder::get()->withName('My playlist')->build();
         $playlist->addTrack(Track::create('id', 'My track'));
