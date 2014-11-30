@@ -12,7 +12,16 @@ use Naxhh\PlayCool\Domain\Exception\AlbumNotFoundException;
 
 class AlbumRepository implements DomainAlbumRepository
 {
+    /**
+     * The Spotify API adapter.
+     */
     private $spotify_api;
+
+    /**
+     * Creates valid Track objects.
+     *
+     * @var TrackBuilder
+     */
     private $track_builder;
 
     public function __construct($spotify_api, TrackBuilder $track_builder) {
@@ -20,6 +29,13 @@ class AlbumRepository implements DomainAlbumRepository
         $this->track_builder = $track_builder;
     }
 
+    /**
+     * Retrieves the album with the given identity.
+     *
+     * @param  AlbumIdentity $identity The identity of the album to retrieve.
+     * @return Domain\Entity\Album
+     * @throws Domain\Exception\AlbumNotFoundException If no album has the requested identity.
+     */
     public function get(AlbumIdentity $identity) {
         try {
             $album_raw = $this->spotify_api->getAlbum($identity->getId());
@@ -36,6 +52,12 @@ class AlbumRepository implements DomainAlbumRepository
         }
     }
 
+    /**
+     * Retrieves a list of albums that match the given name.
+     *
+     * @param  string $name The name to search for.
+     * @return Domain\Entity\Album[]
+     */
     public function getListByName($name) {
         $result = $this->spotify_api->search($name);
 

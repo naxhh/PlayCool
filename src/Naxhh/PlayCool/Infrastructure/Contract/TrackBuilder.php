@@ -3,6 +3,7 @@
 namespace Naxhh\PlayCool\Infrastructure\Contract;
 
 interface TrackBuilder {
+
     /**
      * Creates a valid Track domain object given a PPO.
      *

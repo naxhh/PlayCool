@@ -12,12 +12,22 @@ use Naxhh\PlayCool\Domain\Exception\ArtistNotFoundException;
 
 class ArtistRepository implements DomainArtistRepository
 {
+    /**
+     * The Spotify API adapter.
+     */
     private $spotify_api;
 
     public function __construct($spotify_api) {
         $this->spotify_api = $spotify_api;
     }
 
+    /**
+     * Retrieves the artist with the given identity.
+     *
+     * @param  ArtistIdentity $identity The identity of the artist to retrieve.
+     * @return Domain\Entity\Artist
+     * @throws Domain\Exception\ArtistNotFoundException If no artist has the requested identity.
+     */
     public function get(ArtistIdentity $identity) {
         try {
             $artist_raw = $this->spotify_api->getArtist($identity->getId());
@@ -35,6 +45,12 @@ class ArtistRepository implements DomainArtistRepository
         }
     }
 
+    /**
+     * Retrieves a list of artists that match the given name.
+     *
+     * @param  string $name The name to search for.
+     * @return Domain\Entity\Artist[]
+     */
     public function getListByName($name) {
         $result = $this->spotify_api->search($name);
 

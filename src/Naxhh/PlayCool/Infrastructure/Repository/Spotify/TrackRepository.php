@@ -12,12 +12,22 @@ use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
 
 class TrackRepository implements DomainTrackRepository, TrackBuilder
 {
+    /**
+     * The Spotify API adapter.
+     */
     private $spotify_api;
 
     public function __construct($spotify_api) {
         $this->spotify_api = $spotify_api;
     }
 
+    /**
+     * Retrieves the track with the given identity.
+     *
+     * @param  TrackIdentity $identity The identity of the track to retrieve.
+     * @return Domain\Entity\Track
+     * @throws Domain\Exception\TrackNotFoundException If no track has the requested identity.
+     */
     public function get(TrackIdentity $identity) {
         try {
             $raw_track = $this->spotify_api->getTrack($identity->getId());
@@ -28,6 +38,12 @@ class TrackRepository implements DomainTrackRepository, TrackBuilder
         }
     }
 
+    /**
+     * Retrieves a list of tracks that match the given name.
+     *
+     * @param  string $name The name to search for.
+     * @return Domain\Entity\Track[]
+     */
     public function getListByName($name) {
         $result = $this->spotify_api->search($name);
 
@@ -40,6 +56,13 @@ class TrackRepository implements DomainTrackRepository, TrackBuilder
         return array_map(array($this, 'buildTrack'), $result);
     }
 
+    /**
+     * Creates a valid Track domain object given a PPO.
+     *
+     * @param  stdClass $track The php plain object to convert.
+     * @return Track
+     * @throws \InvalidArgumentException If the object does not contain id and name.
+     */
     public function buildTrack(\stdClass $track) {
         if (!isset($track->id) || !isset($track->name)) {
             throw new InvalidArgumentException('Id and name are mandatory for building the track object');

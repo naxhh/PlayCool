@@ -15,6 +15,7 @@ interface PlaylistRepository
      * Adds or updates an existing playlist.
      *
      * @param Playlist $playlist
+     * @return void
      */
     public function add(Playlist $playlist);
 
