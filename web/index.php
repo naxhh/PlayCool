@@ -8,7 +8,7 @@ require_once __DIR__ . DS . '..' . DS . 'vendor' . DS . 'autoload.php';
 $app = new Silex\Application();
 
 // Config.
-$app['debug'] = true;
+$app['debug'] = false;
 $app['files_path'] = __DIR__ . DS . '..' . DS . 'var' . DS;
 $app['redis.host'] = 'tcp://127.0.0.1:6379';
 
