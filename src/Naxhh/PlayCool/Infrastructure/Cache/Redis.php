@@ -10,7 +10,22 @@ class Redis
         $this->client = $client;
     }
 
+    public function get($key) {
+        $result = $this->client->get($key);
+
+        if ($result) {
+            $result = unserialize($result);
+        }
+
+        return $result;
+    }
+
+    public function set($key, $item) {
+        $this->client->set($key, serialize($item));
+    }
+
     public function getSearch($term) {
+        return false;
         $result = $this->client->smembers($term);
 
         return array_map(function($item) {
@@ -19,9 +34,17 @@ class Redis
     }
 
     public function saveSearch($term, $result) {
-        $this->client->pipeline(function($pipe) {
+        $this->client->pipeline(function($pipe) use($term, $result) {
             foreach ($result as $item) {
                 $pipe->sadd($term, serialize($item));
+            }
+        });
+    }
+
+    public function saveTracks($prefix, $tracks) {
+        $this->client->pipeline(function($pipe) use($prefix, $tracks) {
+            foreach ($tracks as $track) {
+                $pipe->set($prefix . $track->getId(), serialize($track));
             }
         });
     }

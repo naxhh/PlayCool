@@ -22,7 +22,16 @@ class TrackRepository implements DomainTrackRepository, TrackBuilder
     }
 
     public function get(TrackIdentity $identity) {
-        return $this->repository->get($identity);
+        $key = PRE_KEY . $identity->getId();
+
+        $track = $this->redis->get($key);
+
+        if (!$track) {
+            $track = $this->repository->get($identity);
+            $this->redis->set($key, $track);
+        }
+
+        return $track;
     }
 
     public function getListByName($name) {
@@ -33,6 +42,7 @@ class TrackRepository implements DomainTrackRepository, TrackBuilder
             $list = $this->repository->getListByName($name);
 
             $this->redis->saveSearch($key, $list);
+            $this->redis->saveTracks(PRE_KEY, $list);
         }
 
         return $list;
