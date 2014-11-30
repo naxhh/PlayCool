@@ -53,4 +53,12 @@ class Redis
             }
         });
     }
+
+    public function saveArtists($prefix, $artists) {
+        $this->client->pipeline(function($pipe) use($prefix, $artists) {
+            foreach ($artists as $artist) {
+                $pipe->set($prefix . $artist->getId(), serialize($artist));
+            }
+        });
+    }
 }

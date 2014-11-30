@@ -4,7 +4,6 @@ namespace Naxhh\PlayCool\Infrastructure\Repository\Redis;
 
 use Naxhh\PlayCool\Domain\Contract\TrackRepository as DomainTrackRepository;
 use Naxhh\PlayCool\Infrastructure\Contract\TrackBuilder;
-use Naxhh\PlayCool\Domain\Entity\Track;
 use Naxhh\PlayCool\Domain\ValueObject\TrackIdentity;
 use Naxhh\PlayCool\Infrastructure\Cache\Redis;
 

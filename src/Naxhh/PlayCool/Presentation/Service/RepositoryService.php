@@ -13,14 +13,19 @@ use Naxhh\PlayCool\Infrastructure\Repository\Spotify\ArtistRepository;
 use Naxhh\PlayCool\Infrastructure\Cache\Redis;
 use Naxhh\PlayCool\Infrastructure\Repository\Redis\TrackRepository as RedisTrackRepository;
 use Naxhh\PlayCool\Infrastructure\Repository\Redis\AlbumRepository as RedisAlbumRepository;
+use Naxhh\PlayCool\Infrastructure\Repository\Redis\ArtistRepository as RedisArtistRepository;
 
 class RepositoryService implements ServiceProviderInterface
 {
     public function register(Application $app) {
+        $app['redis'] = $app->share(function() use($app) {
+            return new Redis($app['predis']);
+        });
+
         $app['repo.track'] = $app->share(function() use($app) {
             return new RedisTrackRepository(
                 new TrackRepository($app['spotify.api']),
-                new Redis($app['predis'])
+                $app['redis']
             );
         });
 
@@ -31,12 +36,15 @@ class RepositoryService implements ServiceProviderInterface
         $app['repo.album'] = $app->share(function() use ($app) {
             return new RedisAlbumRepository(
                 new AlbumRepository($app['spotify.api'], $app['repo.track']),
-                new Redis($app['predis'])
+                $app['redis']
             );
         });
 
         $app['repo.artist'] = $app->share(function() use ($app) {
-            return new ArtistRepository($app['spotify.api']);
+            return new RedisArtistRepository(
+                new ArtistRepository($app['spotify.api']),
+                $app['redis']
+            );
         });
     }
 
