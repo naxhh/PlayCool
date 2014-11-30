@@ -7,6 +7,9 @@ use Naxhh\PlayCool\Domain\Entity\Album;
 use Naxhh\PlayCool\Domain\ValueObject\AlbumIdentity;
 use Naxhh\PlayCool\Domain\Entity\Track;
 
+use Naxhh\PlayCool\Infrastructure\Spotify\NotFoundException;
+use Naxhh\PlayCool\Domain\Exception\AlbumNotFoundException;
+
 class AlbumRepository implements DomainAlbumRepository
 {
     private $spotify_api;
@@ -16,15 +19,19 @@ class AlbumRepository implements DomainAlbumRepository
     }
 
     public function get(AlbumIdentity $identity) {
-        $album_raw = $this->spotify_api->getAlbum($identity->getId());
+        try {
+            $album_raw = $this->spotify_api->getAlbum($identity->getId());
 
-        $album = Album::create($album_raw->id, $album_raw->name);
+            $album = Album::create($album_raw->id, $album_raw->name);
 
-        foreach ($album_raw->tracks->items as $raw_track) {
-            $album->addTrack(Track::create($raw_track->id, $raw_track->name));
+            foreach ($album_raw->tracks->items as $raw_track) {
+                $album->addTrack(Track::create($raw_track->id, $raw_track->name));
+            }
+
+            return $album;
+        } catch (NotFoundException $e) {
+            throw new AlbumNotFoundException;
         }
-
-        return $album;
     }
 
     public function getListByName($name) {

@@ -39,9 +39,9 @@ class UpdatePlaylistUseCase implements UseCase
         return $playlist;
     }
 
-    private function updateName($name) {
+    private function updateName($playlist, $name) {
         if (!is_null($name)) {
-            $playlist->updateName($request->get('new_name'));
+            $playlist->updateName($name);
         }
     }
 

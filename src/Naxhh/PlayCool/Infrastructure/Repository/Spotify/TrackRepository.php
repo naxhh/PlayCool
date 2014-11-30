@@ -6,6 +6,9 @@ use Naxhh\PlayCool\Domain\Contract\TrackRepository as DomainTrackRepository;
 use Naxhh\PlayCool\Domain\Entity\Track;
 use Naxhh\PlayCool\Domain\ValueObject\TrackIdentity;
 
+use Naxhh\PlayCool\Infrastructure\Spotify\NotFoundException;
+use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
+
 class TrackRepository implements DomainTrackRepository
 {
     private $spotify_api;
@@ -15,9 +18,13 @@ class TrackRepository implements DomainTrackRepository
     }
 
     public function get(TrackIdentity $identity) {
-        $raw_track = $this->spotify_api->getTrack($identity->getId());
+        try {
+            $raw_track = $this->spotify_api->getTrack($identity->getId());
 
-        return Track::create($raw_track->id, $raw_track->name);
+            return Track::create($raw_track->id, $raw_track->name);
+        } catch (NotFoundException $e) {
+            throw new TrackNotFoundException;
+        }
     }
 
     public function getListByName($name) {

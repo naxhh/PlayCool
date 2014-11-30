@@ -2,8 +2,6 @@
 
 namespace Naxhh\PlayCool\Infrastructure\Spotify;
 use SpotifyWebAPI\SpotifyWebAPIException;
-use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
-use Naxhh\PlayCool\Domain\Exception\AlbumNotFoundException;
 
 /**
  * Wrapper for external Spotify API client.
@@ -43,7 +41,7 @@ class Api
         try {
             return $this->external_api->getTrack($track_id);
         } catch (SpotifyWebAPIException $e) {
-            throw new TrackNotFoundException;
+            throw new NotFoundException;
         }
     }
 
@@ -51,7 +49,7 @@ class Api
         try {
             return $this->external_api->getAlbum($album_id);
         } catch (SpotifyWebAPIException $e) {
-            throw new AlbumNotFoundException;
+            throw new NotFoundException;
 
         }
     }
