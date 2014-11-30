@@ -20,10 +20,10 @@ class SpotifyApiService implements ServiceProviderInterface
             $api = new ThirdPartApi;
 
             // TODO: Implement some sort of caching for the token.
-            $session = new \SpotifyWebAPI\Session(Credentials::CLIENT_ID, Credentials::CLIENT_SECRET, '');
-            $session->requestCredentialsToken(array());
+            //$session = new \SpotifyWebAPI\Session(Credentials::CLIENT_ID, Credentials::CLIENT_SECRET, '');
+            //$session->requestCredentialsToken(array());
 
-            $api->setAccessToken($session->getAccessToken());
+            //$api->setAccessToken($session->getAccessToken());
 
             return new RuntimeCacheDecorator(new SpotifyApi($api));
         });
