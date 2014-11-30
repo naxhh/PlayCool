@@ -6,10 +6,11 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Naxhh\PlayCool\Application\Command\UpdatePlaylistNameCommand;
-use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistNameUseCase;
+use Naxhh\PlayCool\Application\Command\UpdatePlaylistCommand;
+use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
 use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
+use Naxhh\PlayCool\Infrastructure\Repository\Spotify\TrackRepository;
 use League\Fractal;
 
 class UpdatePlaylist
@@ -20,8 +21,14 @@ class UpdatePlaylist
         try {
             $this->app = $app;
 
-            $name     = $request->request->get('name');
-            $playlist = $this->buildUseCase()->handle(new UpdatePlaylistNameCommand($id, $name));
+            $command = new UpdatePlaylistCommand(
+                $id,
+                $request->request->get('name'),
+                $request->request->get('add-tracks'),
+                $request->request->get('remove-tracks')
+            );
+
+            $playlist = $this->buildUseCase()->handle($command);
             $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
 
             return new JsonResponse(
@@ -34,6 +41,9 @@ class UpdatePlaylist
     }
 
     private function buildUseCase() {
-        return new UpdatePlaylistNameUseCase($this->app['repo.playlist']);
+        return new UpdatePlaylistUseCase(
+            $this->app['repo.playlist'],
+            new TrackRepository($this->app['spotify.api'])
+        );
     }
 }

@@ -84,24 +84,12 @@ class Playlist
     }
 
     /**
-     * Adds a track into the playlist. It fails if the track is already in the playlist.
+     * Adds a track into the playlist.
      *
      * @param  Track $track The track to add to the playlist.
      * @return void
-     * @throws Exception\TrackAlreadyAddedException If the track is already in the playlist.
      */
     public function addTrack(Track $track) {
-
-        $track_already_exists = function($key, $item) use ($track) {
-            return $track->getId() == $item->getId();
-        };
-
-        if ($this->tracks->exists($track_already_exists)) {
-            throw new TrackAlreadyAddedException(sprintf(
-                'Track with name "%s" already exist in the playlist', $track->getName()
-            ));
-        }
-
         $this->tracks->set($track->getId(), $track);
     }
 

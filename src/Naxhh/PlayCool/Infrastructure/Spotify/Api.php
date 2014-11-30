@@ -1,6 +1,8 @@
 <?php
 
 namespace Naxhh\PlayCool\Infrastructure\Spotify;
+use SpotifyWebAPI\SpotifyWebAPIException;
+use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
 
 /**
  * Wrapper for external Spotify API client.
@@ -34,5 +36,13 @@ class Api
         ));
 
         return self::$searches[$term];
+    }
+
+    public function getTrack($track_id) {
+        try {
+            return $this->external_api->getTrack($track_id);
+        } catch (SpotifyWebAPIException $e) {
+            throw new TrackNotFoundException;
+        }
     }
 }
