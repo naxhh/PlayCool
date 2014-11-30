@@ -14,6 +14,7 @@ use Naxhh\PlayCool\Infrastructure\Cache\Redis;
 use Naxhh\PlayCool\Infrastructure\Repository\Redis\TrackRepository as RedisTrackRepository;
 use Naxhh\PlayCool\Infrastructure\Repository\Redis\AlbumRepository as RedisAlbumRepository;
 use Naxhh\PlayCool\Infrastructure\Repository\Redis\ArtistRepository as RedisArtistRepository;
+use Naxhh\PlayCool\Infrastructure\Repository\Redis\PlaylistRepository as RedisPlaylistRepository;
 
 class RepositoryService implements ServiceProviderInterface
 {
@@ -30,7 +31,10 @@ class RepositoryService implements ServiceProviderInterface
         });
 
         $app['repo.playlist'] = $app->share(function() use($app) {
-            return new PlaylistRepository($app['files_path'], $app['repo.track']);
+            return new RedisPlaylistRepository(
+                new PlaylistRepository($app['files_path'], $app['repo.track']),
+                $app['redis']
+            );
         });
 
         $app['repo.album'] = $app->share(function() use ($app) {
