@@ -97,6 +97,22 @@ But anyway, I still think Redis is a great fit for this.
 It has great datastructures for other kind of implementations (not only cache), it has pub-sub for distributed system.
 So I think it can have a great fit in a more extended implementation.
 
+### How to run the code
+For testing the application you will need PHP 5.5 (I think php 5.4 will work but I didn't test it)
+
+Execute the server:
+
+`php -S 0.0.0.0:80 web/index.php`
+
+And set-up a Redis standalone:
+`redis-server /usr/local/etc/redis.conf`
+
+Check in web/index.php that the redis host/port is correct. And it should work correctly.
+
+Tests:
+`./vendor/phpunit/phpunit/phpunit tests`
+
+
 ### About the exam.
 
 I've really enjoyed the exam. The main idea was fun and not having to do a front-end website helps a lot, as I'm not really good with colors and design.
