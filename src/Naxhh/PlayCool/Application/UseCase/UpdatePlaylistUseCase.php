@@ -10,9 +10,6 @@ use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 use Naxhh\PlayCool\Domain\ValueObject\TrackIdentity;
 use Naxhh\PlayCool\Domain\Exception\TrackNotFoundException;
 
-// TMP.
-use Naxhh\PlayCool\Domain\Entity\Track;
-
 /**
  * Updates a playlist.
  */
@@ -33,16 +30,19 @@ class UpdatePlaylistUseCase implements UseCase
             new PlaylistIdentity($request->get('id'))
         );
 
-        if (!is_null($request->get('new_name'))) {
-            $playlist->updateName($request->get('new_name'));
-        }
-
+        $this->updateName($playlist, $request->get('new_name'));
         $this->addTracks($playlist, $request->get('add_tracks'));
         $this->removeTracks($playlist, $request->get('remove_tracks'));
 
         $this->playlist_repository->add($playlist);
 
         return $playlist;
+    }
+
+    private function updateName($playlist, $name) {
+        if (!is_null($name)) {
+            $playlist->updateName($name);
+        }
     }
 
     private function addTracks($playlist, $tracks) {

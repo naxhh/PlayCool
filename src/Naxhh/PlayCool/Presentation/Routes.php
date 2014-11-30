@@ -23,6 +23,8 @@ $app->get('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetP
 $app->put('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\UpdatePlaylist::execute');
 $app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\RemovePlaylist::execute');
 
+$app->get('/api/v1/albums/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetAlbum::execute');
+
 $app->get('/api/v1/search', 'Naxhh\PlayCool\Presentation\Controller\Search::execute');
 
 $app->error(function(\Exception $e, $code) {
