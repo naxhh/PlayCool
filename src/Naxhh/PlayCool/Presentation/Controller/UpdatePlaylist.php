@@ -6,8 +6,8 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Naxhh\PlayCool\Application\Command\UpdatePlaylistNameCommand;
-use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistNameUseCase;
+use Naxhh\PlayCool\Application\Command\UpdatePlaylistCommand;
+use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
 use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
 use League\Fractal;
@@ -20,7 +20,7 @@ class UpdatePlaylist
         try {
             $this->app = $app;
 
-            $command = new UpdatePlaylistNameCommand(
+            $command = new UpdatePlaylistCommand(
                 $id,
                 $request->request->get('name'),
                 $request->request->get('add-tracks'),
@@ -40,6 +40,6 @@ class UpdatePlaylist
     }
 
     private function buildUseCase() {
-        return new UpdatePlaylistNameUseCase($this->app['repo.playlist']);
+        return new UpdatePlaylistUseCase($this->app['repo.playlist']);
     }
 }
