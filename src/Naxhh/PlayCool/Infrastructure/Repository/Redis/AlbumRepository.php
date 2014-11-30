@@ -39,7 +39,6 @@ class AlbumRepository implements DomainAlbumRepository
             $list = $this->repository->getListByName($name);
 
             $this->redis->saveSearch($key, $list);
-            $this->redis->saveAlbums(self::PRE_KEY, $list);
         }
 
         return $list;

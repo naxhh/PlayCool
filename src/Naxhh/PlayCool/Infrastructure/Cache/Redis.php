@@ -39,25 +39,17 @@ class Redis
     }
 
     public function saveTracks($prefix, $tracks) {
-        $this->client->pipeline(function($pipe) use($prefix, $tracks) {
-            foreach ($tracks as $track) {
-                $pipe->set($prefix . $track->getId(), serialize($track));
-            }
+        $this->saveList($tracks, function($track) use($prefix) {
+            return $prefix . $track->getId();
         });
     }
 
-    public function saveAlbums($prefix, $albums) {
-        $this->client->pipeline(function($pipe) use($prefix, $albums) {
-            foreach ($albums as $album) {
-                $pipe->set($prefix . $album->getId(), serialize($album));
-            }
-        });
-    }
+    private function saveList($list, Callable $callback) {
+        $this->client->pipeline(function($pipe) use($list, $callback) {
+            foreach ($list as $item) {
+                $key = $callback($item);
 
-    public function saveArtists($prefix, $artists) {
-        $this->client->pipeline(function($pipe) use($prefix, $artists) {
-            foreach ($artists as $artist) {
-                $pipe->set($prefix . $artist->getId(), serialize($artist));
+                $pipe->set($key, serialize($item));
             }
         });
     }

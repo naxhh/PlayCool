@@ -42,7 +42,6 @@ class ArtistRepository implements DomainArtistRepository
             $list = $this->repository->getListByName($name);
 
             $this->redis->saveSearch($key, $list);
-            $this->redis->saveArtists(self::PRE_KEY, $list);
         }
 
         return $list;
