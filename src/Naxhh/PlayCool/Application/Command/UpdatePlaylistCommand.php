@@ -10,7 +10,7 @@ use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
  * Updates the name of a playlist.
  * You should provide the current name of the playlist and the new one.
  */
-class UpdatePlaylistNameCommand implements Command
+class UpdatePlaylistCommand implements Command
 {
     private $id;
     private $new_name;

@@ -10,6 +10,7 @@ use Naxhh\PlayCool\Application\Command\UpdatePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\UpdatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
 use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
+use Naxhh\PlayCool\Infrastructure\Repository\Spotify\TrackRepository;
 use League\Fractal;
 
 class UpdatePlaylist
@@ -40,6 +41,9 @@ class UpdatePlaylist
     }
 
     private function buildUseCase() {
-        return new UpdatePlaylistUseCase($this->app['repo.playlist']);
+        return new UpdatePlaylistUseCase(
+            $this->app['repo.playlist'],
+            new TrackRepository($this->app['spotify.api'])
+        );
     }
 }

@@ -26,6 +26,7 @@ $app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\R
 $app->get('/api/v1/search', 'Naxhh\PlayCool\Presentation\Controller\Search::execute');
 
 $app->error(function(\Exception $e, $code) {
+
     switch ($code) {
         case 400:
             $message = $e->getMessage() ?: 'Please check your entities to ensure that you are providing valid data';
