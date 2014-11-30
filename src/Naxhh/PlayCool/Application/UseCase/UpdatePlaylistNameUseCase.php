@@ -7,6 +7,9 @@ use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 
+// TMP.
+use Naxhh\PlayCool\Domain\Entity\Track;
+
 /**
  * Updates the name of a playlist.
  */
@@ -24,10 +27,20 @@ class UpdatePlaylistNameUseCase implements UseCase
         $playlist = $this->playlist_repository->get(
             new PlaylistIdentity($request->get('id'))
         );
-        $playlist->updateName($request->get('new_name'));
+
+        if (!is_null($request->get('new_name'))) {
+            $playlist->updateName($request->get('new_name'));
+        }
+        $this->addTracks($playlist, $request->get('add_tracks'));
 
         $this->playlist_repository->add($playlist);
 
         return $playlist;
+    }
+
+    private function addTracks($playlist, $tracks) {
+        foreach ($tracks as $track) {
+            $playlist->addTrack(Track::create($track['id'], $track['name']));
+        }
     }
 }

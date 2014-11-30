@@ -20,8 +20,13 @@ class UpdatePlaylist
         try {
             $this->app = $app;
 
-            $name     = $request->request->get('name');
-            $playlist = $this->buildUseCase()->handle(new UpdatePlaylistNameCommand($id, $name));
+            $command = new UpdatePlaylistNameCommand(
+                $id,
+                $request->request->get('name'),
+                $request->request->get('add-tracks')
+            );
+
+            $playlist = $this->buildUseCase()->handle($command);
             $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
 
             return new JsonResponse(

@@ -4,6 +4,7 @@ namespace Naxhh\PlayCool\Infrastructure\Repository\File;
 
 use Naxhh\PlayCool\Domain\Contract\PlaylistRepository as DomainPlaylistRepository;
 use Naxhh\PlayCool\Domain\Entity\Playlist;
+use Naxhh\PlayCool\Domain\Entity\Track;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 use Naxhh\PlayCool\Domain\Exception\PlaylistNotFoundException;
 
@@ -27,9 +28,20 @@ class PlaylistRepository implements DomainPlaylistRepository
      * @param Playlist $playlist
      */
     public function add(Playlist $playlist) {
+        $tracks = $playlist->getTracks();
+        $tracks_list = array();
+
+        foreach ($tracks as $track) {
+            $tracks_list[$track->getId()] = array(
+                'id'   => $track->getId(),
+                'name' => $track->getName()
+            );
+        }
+
         $this->content[$playlist->getId()] = array(
-            'id'   => $playlist->getId(),
-            'name' => $playlist->getName(),
+            'id'     => $playlist->getId(),
+            'name'   => $playlist->getName(),
+            'tracks' => $tracks_list,
         );
     }
 
@@ -54,9 +66,9 @@ class PlaylistRepository implements DomainPlaylistRepository
             throw new PlaylistNotFoundException();
         }
 
-        $playlist = $this->content[$identity->getId()];
+        $raw_playlist = $this->content[$identity->getId()];
 
-        return Playlist::create($playlist['id'], $playlist['name']);
+        return $this->buildPlaylist($raw_playlist);
     }
 
     /**
@@ -68,9 +80,21 @@ class PlaylistRepository implements DomainPlaylistRepository
         $playlists = array();
 
         foreach ($this->content as $playlist) {
-            $playlists[] = Playlist::create($playlist['id'], $playlist['name']);
+            $playlists[] = $this->buildPlaylist($playlist);
         }
 
         return $playlists;
+    }
+
+    private function buildPlaylist($raw_playlist) {
+        $playlist = Playlist::create($raw_playlist['id'], $raw_playlist['name']);
+
+        if (isset($raw_playlist['tracks'])) {
+            foreach ($raw_playlist['tracks'] as $raw_track) {
+                $playlist->addTrack(Track::create($raw_track['id'], $raw_track['name']));
+            }
+        }
+
+        return $playlist;
     }
 }
