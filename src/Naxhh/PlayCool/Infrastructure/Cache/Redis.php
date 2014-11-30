@@ -25,12 +25,9 @@ class Redis
     }
 
     public function getSearch($term) {
-        return false;
-        $result = $this->client->smembers($term);
-
         return array_map(function($item) {
             return unserialize($item);
-        }, $result);
+        }, $this->client->smembers($term));
     }
 
     public function saveSearch($term, $result) {
@@ -45,6 +42,14 @@ class Redis
         $this->client->pipeline(function($pipe) use($prefix, $tracks) {
             foreach ($tracks as $track) {
                 $pipe->set($prefix . $track->getId(), serialize($track));
+            }
+        });
+    }
+
+    public function saveAlbums($prefix, $albums) {
+        $this->client->pipeline(function($pipe) use($prefix, $albums) {
+            foreach ($albums as $album) {
+                $pipe->set($prefix . $album->getId(), serialize($album));
             }
         });
     }
