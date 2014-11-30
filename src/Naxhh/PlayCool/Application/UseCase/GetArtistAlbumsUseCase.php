@@ -7,6 +7,9 @@ use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\PlayCool\Domain\Contract\ArtistRepository;
 use Naxhh\PlayCool\Domain\ValueObject\ArtistIdentity;
 
+/**
+ * Retrieves artist albums.
+ */
 class GetArtistAlbumsUseCase implements UseCase
 {
     private $artist_repository;

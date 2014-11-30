@@ -5,6 +5,9 @@ namespace Naxhh\PlayCool\Application\Command;
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
 
+/**
+ * Searchs by artist.
+ */
 class SearchArtistCommand implements Command
 {
     private $search_term;
