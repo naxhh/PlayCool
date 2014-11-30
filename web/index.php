@@ -9,6 +9,7 @@ $app = new Silex\Application();
 
 // Config.
 $app['debug'] = true;
+$app['files_path'] = __DIR__ . DS . '..' . DS . 'var' . DS;
 
 // Services.
 require __DIR__ . DS . '..' . DS . 'src' . DS . 'Naxhh' . DS . 'PlayCool' . DS . 'Presentation' . DS . 'Services.php';
