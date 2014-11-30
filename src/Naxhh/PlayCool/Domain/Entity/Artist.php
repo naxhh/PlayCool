@@ -22,11 +22,11 @@ class Artist
     private $name;
 
     /**
-     * The list of tracks in the artist.
+     * The list of albums in the artist.
      *
-     * @var Track[]
+     * @var Album[]
      */
-    private $tracks;
+    private $albums;
 
     /**
      * Public interface for creating a new artist.
@@ -42,36 +42,36 @@ class Artist
     private function __construct(ArtistIdentity $id, $name) {
         $this->id     = $id;
         $this->name   = $name;
-        $this->tracks = new ArrayCollection;
+        $this->albums = new ArrayCollection;
     }
 
     /**
-     * Adds a track to the artist.
+     * Adds a album to the artist.
      *
-     * @param Track $track The track to add.
+     * @param Album $album The album to add.
      * @return void
      */
-    public function addTrack(Track $track) {
-        $this->tracks->set($track->getId(), $track);
+    public function addAlbum(Album $album) {
+        $this->albums->set($album->getId(), $album);
     }
 
     /**
-     * Removes a track from the artist.
+     * Removes a album from the artist.
      *
-     * @param  Track  $track The track to remove.
+     * @param  album $album The album to remove.
      * @return void
      */
-    public function removeTrack(Track $track) {
-        $this->tracks->remove($track->getId());
+    public function removealbum(Album $album) {
+        $this->albums->remove($album->getId());
     }
 
     /**
-     * Retrieves the list of tracks.
+     * Retrieves the list of albums.
      *
-     * @return Track[]
+     * @return Album[]
      */
-    public function getTracks() {
-        return $this->tracks;
+    public function getAlbums() {
+        return $this->albums;
     }
 
     /**

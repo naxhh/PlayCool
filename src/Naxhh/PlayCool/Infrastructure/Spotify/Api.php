@@ -53,4 +53,20 @@ class Api
 
         }
     }
+
+    public function getArtist($artist_id) {
+        try {
+            return $this->external_api->getArtist($artist_id);
+        } catch (SpotifyWebAPIException $e) {
+            throw new NotFoundException;
+        }
+    }
+
+    public function getArtistAlbums($artist_id) {
+        try {
+            return $this->external_api->getArtistAlbums($artist_id);
+        } catch (SpotifyWebAPIException $e) {
+            throw new NotFoundException;
+        }
+    }
 }

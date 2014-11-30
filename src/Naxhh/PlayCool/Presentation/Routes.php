@@ -25,6 +25,8 @@ $app->delete('/api/v1/playlists/{id}', 'Naxhh\PlayCool\Presentation\Controller\R
 
 $app->get('/api/v1/albums/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetAlbum::execute');
 
+$app->get('/api/v1/artists/{id}', 'Naxhh\PlayCool\Presentation\Controller\GetArtist::execute');
+
 $app->get('/api/v1/search', 'Naxhh\PlayCool\Presentation\Controller\Search::execute');
 
 $app->error(function(\Exception $e, $code) {

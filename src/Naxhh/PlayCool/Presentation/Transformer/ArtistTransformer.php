@@ -11,11 +11,11 @@ use Naxhh\PlayCool\Domain\Entity\Artist;
 class ArtistTransformer extends TransformerAbstract
 {
     /**
-     * Includes the tracks if present.
+     * Includes the albums if present.
      *
      * @var array
      */
-    protected $defaultIncludes = array('tracks');
+    protected $defaultIncludes = array('albums');
 
     public function transform(Artist $artist) {
 
@@ -25,7 +25,7 @@ class ArtistTransformer extends TransformerAbstract
         );
     }
 
-    public function includeTracks(Artist $artist) {
-        return $this->collection($artist->getTracks(), new TrackTransformer);
+    public function includeAlbums(Artist $artist) {
+        return $this->collection($artist->getAlbums(), new AlbumTransformer);
     }
 }
