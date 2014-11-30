@@ -24,6 +24,39 @@ class Redis
         $this->client->set($key, serialize($item));
     }
 
+    public function getList($key) {
+        return array_map(function($item) {
+            return unserialize($item);
+        }, $this->client->hgetall($key));
+    }
+
+    public function saveList($key, $list) {
+        $this->client->pipeline(function($pipe) use($key, $list) {
+            foreach ($list as $item) {
+                $pipe->hset($key, $item->getId(), serialize($item));
+            }
+        });
+    }
+
+    public function getItemFromList($key, $item_key) {
+        $item = $this->client->hget($key, $item_key);
+
+        if (!$item) {
+            return false;
+        }
+
+        return unserialize($item);
+    }
+
+    public function saveItemInList($key, $item) {
+        $this->client->hset($key, $item->getId(), serialize($item));
+    }
+
+    public function removeItemInList($key, $item) {
+        $this->client->hdel($key, $item->getId());
+    }
+
+
     public function getSearch($term) {
         return array_map(function($item) {
             return unserialize($item);
@@ -39,12 +72,12 @@ class Redis
     }
 
     public function saveTracks($prefix, $tracks) {
-        $this->saveList($tracks, function($track) use($prefix) {
+        $this->saveMultipleItems($tracks, function($track) use($prefix) {
             return $prefix . $track->getId();
         });
     }
 
-    private function saveList($list, Callable $callback) {
+    private function saveMultipleItems($list, Callable $callback) {
         $this->client->pipeline(function($pipe) use($list, $callback) {
             foreach ($list as $item) {
                 $key = $callback($item);
