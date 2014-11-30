@@ -31,6 +31,7 @@ interface PlaylistRepository
      *
      * @param PlaylistIdentity $identity The identity of the playlist.
      * @return Playlist
+     * @throws PlaylistNotFoundException If the playlist does not exist.
      */
     public function get(PlaylistIdentity $identity);
 

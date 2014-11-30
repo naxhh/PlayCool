@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Naxhh\PlayCool\Application\Command\CreatePlaylistCommand;
 use Naxhh\PlayCool\Application\UseCase\CreatePlaylistUseCase;
 use Naxhh\PlayCool\Presentation\Transformer\PlaylistTransformer;
+use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
 use League\Fractal;
 
 class CreatePlaylist
@@ -16,17 +17,21 @@ class CreatePlaylist
     private $app;
 
     public function execute(Request $request, Application $app) {
-        $this->app = $app;
+        try {
+            $this->app = $app;
 
-        $name     = $request->request->get('name');
-        $playlist = $this->buildUseCase()->handle(new CreatePlaylistCommand($name));
+            $name     = $request->request->get('name');
+            $playlist = $this->buildUseCase()->handle(new CreatePlaylistCommand($name));
 
-        $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
+            $resource = new Fractal\Resource\Item($playlist, new PlaylistTransformer);
 
-        return new JsonResponse(
-            $app['fractal']->createData($resource)->toArray(),
-            201
-        );
+            return new JsonResponse(
+                $app['fractal']->createData($resource)->toArray(),
+                201
+            );
+        } catch (InvalidPlaylistNameException $e) {
+            $this->app->abort(400, 'You should provide a valid playlist name');
+        }
     }
 
     private function buildUseCase() {

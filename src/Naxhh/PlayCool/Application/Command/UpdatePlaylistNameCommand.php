@@ -4,6 +4,7 @@ namespace Naxhh\PlayCool\Application\Command;
 
 use Naxhh\PlayCool\Application\Contract\Command;
 use Naxhh\Playcool\Domain\Adapter\ArrayCollection;
+use Naxhh\PlayCool\Application\Exception\InvalidPlaylistNameException;
 
 /**
  * Updates the name of a playlist.
@@ -16,7 +17,11 @@ class UpdatePlaylistNameCommand implements Command
 
     public function __construct($id, $new_name) {
         $this->id       = $id;
-        $this->new_name = $new_name;
+        $this->new_name = trim($new_name);
+
+        if (!$this->new_name) {
+            throw new InvalidPlaylistNameException();
+        }
     }
 
     public function getRequest()
