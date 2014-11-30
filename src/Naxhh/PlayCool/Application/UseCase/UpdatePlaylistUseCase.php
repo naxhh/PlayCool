@@ -57,6 +57,13 @@ class UpdatePlaylistUseCase implements UseCase
         });
     }
 
+    /**
+     * Helper function for add and remove tracks.
+     *
+     * @param  Traversable   $tracks   The list of tracks.
+     * @param  Callable $callback The callback to for each track.
+     * @return void
+     */
     private function handleTracks($tracks, Callable $callback) {
          foreach ($tracks as $raw_track) {
             try {

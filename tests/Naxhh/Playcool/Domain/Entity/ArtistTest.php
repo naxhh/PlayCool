@@ -4,35 +4,35 @@ namespace Naxhh\PlayCool\Domain\Entity;
 
 class ArtistTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNewArtistHasNoTracks() {
+    public function testNewArtistHasNoAlbums() {
         $artist = Artist::create('id', 'Artist name');
 
         $this->assertCount(
             0,
-            $artist->getTracks()
+            $artist->getAlbums()
         );
     }
 
-    public function testAddTrackToArtist() {
+    public function testDddAlbumToArtist() {
         $artist = Artist::create('id', 'Artist name');
 
-        $artist->addTrack(Track::create('id', 'Track name'));
+        $artist->addAlbum(Album::create('id', 'Album name'));
 
         $this->assertCount(
             1,
-            $artist->getTracks()
+            $artist->getAlbums()
         );
     }
 
-    public function testRemoveTrackFromArtist() {
+    public function testRemoveAlbumFromArtist() {
         $artist = Artist::create('id', 'Artist name');
 
-        $artist->addTrack(Track::create('id', 'Track name'));
-        $artist->removeTrack(Track::create('id', 'Track name'));
+        $artist->addAlbum(Album::create('id', 'Album name'));
+        $artist->removeAlbum(Album::create('id', 'Album name'));
 
         $this->assertCount(
             0,
-            $artist->getTracks()
+            $artist->getAlbums()
         );
     }
 }

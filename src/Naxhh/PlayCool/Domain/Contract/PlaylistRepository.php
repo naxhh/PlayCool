@@ -5,10 +5,6 @@ namespace Naxhh\PlayCool\Domain\Contract;
 use Naxhh\PlayCool\Domain\Entity\Playlist;
 use Naxhh\PlayCool\Domain\ValueObject\PlaylistIdentity;
 
-/**
- * Repository interface for the Playlist.
- * A playlist is an aggregate of tracks.
- */
 interface PlaylistRepository
 {
     /**

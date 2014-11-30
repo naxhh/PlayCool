@@ -36,6 +36,11 @@ class Track
         $this->name = $name;
     }
 
+    /**
+     * Returns the Id of the Track.
+     *
+     * @return string
+     */
     public function getId() {
         return $this->id->getId();
     }
