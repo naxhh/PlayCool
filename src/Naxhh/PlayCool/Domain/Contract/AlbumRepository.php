@@ -2,7 +2,11 @@
 
 namespace Naxhh\PlayCool\Domain\Contract;
 
+use Naxhh\PlayCool\Domain\ValueObject\AlbumIdentity;
+
 interface AlbumRepository
 {
+    public function get(AlbumIdentity $identity);
+
     public function getListByName($name);
 }
