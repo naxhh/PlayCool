@@ -1,5 +1,7 @@
 # PlayCool.
 
+A playlist API manager for Spotify test.
+
 ### Architecture
 I've tried to do some DDD. But as you will see is not a 100% DDD implementation.
 I wanted to try the DDD approach but I didn't want to be too much strict with the code.
@@ -111,19 +113,3 @@ Check in web/index.php that the redis host/port is correct. And it should work c
 
 Tests:
 `./vendor/phpunit/phpunit/phpunit tests`
-
-
-### About the exam.
-
-I've really enjoyed the exam. The main idea was fun and not having to do a front-end website helps a lot, as I'm not really good with colors and design.
-
-I found the challenge interesting, I liked that you don't care that much about the MySQL part, because that is trivial. And cared about optimization and performing as less calls as possible.
-
-Saddly I wasn't able to finish my cache system as I wished but I think the final result is interesting.
-
-I also take the oportunity to layer the APP in a DDD fashion and that was really funny too.
-
-Finally, Thanks for the opportunity of make this test.
-And for the time,
-
-Regards Ignacio T.
