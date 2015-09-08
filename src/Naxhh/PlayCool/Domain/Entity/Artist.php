@@ -61,7 +61,7 @@ class Artist
      * @param  album $album The album to remove.
      * @return void
      */
-    public function removealbum(Album $album) {
+    public function removeAlbum(Album $album) {
         $this->albums->remove($album->getId());
     }
 
